@@ -289,8 +289,9 @@ while not isconnected():
 print("Connected")
 ntptime.settime()
 
-print("Displaying time...")
+
 while True:
+    print("Displaying time...")
     clock_mode()
     
     for i in range(60):
@@ -300,8 +301,14 @@ while True:
             count_down_mode()
             np_seconds.fill((0,0,0))
             light_alphas_timer((35, 51, 70))
-            if button.value() == 0:
-                break
+            while True:
+                for i in ((0,0,0), (color_of_border_timer)):
+                    np_seconds.fill(i)
+                    np_seconds.write()
+                    sleep(0.5)
+                if button.value() == 0:
+                    break
+            break
         else:
             pass
         

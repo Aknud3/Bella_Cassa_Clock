@@ -281,7 +281,8 @@ def clock_mode():
         
     np_seconds.write()  
     np.write()    
-        
+
+    return dots
 print("System starting...")
 while not isconnected():
     connect()
@@ -293,6 +294,7 @@ ntptime.settime()
 while True:
     print("Displaying time...")
     clock_mode()
+    dots = clock_mode()
     
     for i in range(60):
         sleep(0.5)

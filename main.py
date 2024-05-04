@@ -12,7 +12,7 @@ color_of_corners =  (255, 0, 0)
 color_of_alphas_timer = (255, 255, 0)
 color_of_border_timer = (0, 255, 255)
 
-wifi_loginy=[["GMH","covidgmh"],["ESP","espgmhco2"]]
+wifi_loginy=[["GMH","covidgmh"],["ESP","espgmhco2"],["twojnar","kvorechu"]]
 
 rtc = RTC()
 neoled = Pin(23, Pin.OUT)
@@ -281,8 +281,8 @@ def clock_mode():
         
     np_seconds.write()  
     np.write()    
+    return dots, current_time_list
 
-    return dots
 print("System starting...")
 while not isconnected():
     connect()
@@ -290,13 +290,13 @@ while not isconnected():
 print("Connected")
 ntptime.settime()
 
-
+print("Displaying time...")
 while True:
-    print("Displaying time...")
     clock_mode()
-    dots = clock_mode()
+    dots = clock_mode()[0]
+    current_time_list = clock_mode()[1]
     
-    for i in range(60):
+    for i in range(60 - current_time_list[6]):
         sleep(0.5)
         if button.value() == 0:
             print("This is countdown")

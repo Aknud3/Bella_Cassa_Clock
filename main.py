@@ -12,7 +12,7 @@ COLOR_OF_CORNERS =  (0, 0, 255)
 COLOR_OF_ALPHAS_TIMER = (0, 255, 0)
 COLOR_OF_BORDER_TIMER = (0, 255, 0)
 
-wifi_loginy=[["GMH","covidgmh"],["ESP","espgmhco2"],["twojnar","kvorechu"]]
+wifi_loginy=[["GMH","covidgmh"],["ESP","espgmhco2"]]
 
 rtc = RTC()
 neoled = Pin(23, Pin.OUT)

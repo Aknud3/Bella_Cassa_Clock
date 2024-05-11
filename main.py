@@ -13,7 +13,7 @@ COLOR_OF_ALPHAS_TIMER = (0, 255, 0)
 COLOR_OF_BORDER_TIMER = (0, 255, 0)
 
 
-WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"], ["twojnar", "kvorechu"]]
+WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"]]
 
 RTC_MODULE = RTC()
 NEOLED = Pin(23, Pin.OUT)

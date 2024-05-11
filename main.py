@@ -15,7 +15,7 @@ COLOR_OF_BORDER_TIMER = (0, 255, 0)
 
 WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"], ["twojnar", "kvorechu"]]
 
-RTC = RTC()
+RTC_MODULE = RTC()
 NEOLED = Pin(23, Pin.OUT)
 NEOLED_SECONDS = Pin(22, Pin.OUT)
 BUTTON = machine.Pin(4, machine.Pin.IN, machine.Pin.PULL_UP)
@@ -228,7 +228,7 @@ def count_down_mode():
 
 def clock_mode():
     "function to clock mode"
-    current_time = list(RTC.datetime())
+    current_time = list(RTC_MODULE.datetime())
     hour_offset(current_time)
     hours = current_time[4]
     minutes = current_time[5]

@@ -129,7 +129,7 @@ def wifi_connect(ssid, pswd):
 
 
 def disconnect():
-    "function to disconnect from wifi"a
+    "function to disconnect from wifi"
     station.active(False)
     if station.isconnected() is False:
         print("Disconnected")

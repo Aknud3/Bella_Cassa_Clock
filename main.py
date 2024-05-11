@@ -236,20 +236,7 @@ def clock_mode():
     clock_text = [0] * 110
     clock_dots = [False] * 4
     for j in range(1, 5):
-        if minutes in [
-            0 + j,
-            5 + j,
-            10 + j,
-            15 + j,
-            20 + j,
-            25 + j,
-            30 + j,
-            35 + j,
-            40 + j,
-            45 + j,
-            50 + j,
-            55 + j,
-        ]:
+        if minutes in [5 * x + j for x in range(0, 12)]:
             for k in range(j):
                 clock_dots[k] = True
     minutes = (minutes // 5) * 5

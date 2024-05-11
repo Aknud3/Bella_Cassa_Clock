@@ -106,10 +106,9 @@ def getmac():
     return station.config("mac")
 
 
-def wifi_connect(id, pswd):
+def wifi_connect(ssid, pswd):
     "function to connect to wifi"
     sta_if = network.WLAN(network.STA_IF)
-    ssid = id
     password = pswd
     if sta_if.isconnected():
         return True
@@ -130,7 +129,7 @@ def wifi_connect(id, pswd):
 
 
 def disconnect():
-    "function to disconnect from wifi"
+    "function to disconnect from wifi"a
     station.active(False)
     if station.isconnected() is False:
         print("Disconnected")

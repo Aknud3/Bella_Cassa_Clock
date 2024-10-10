@@ -6,22 +6,27 @@ import network
 import socket
 import ntptime
 
-COLOR_OF_ALPHAS = (255, 255, 255)  # green, red, blue format
-COLOR_OF_SECONDS = (63, 123, 0)
-COLOR_OF_CORNERS = (0, 0, 255)
-COLOR_OF_ALPHAS_TIMER = (0, 255, 0)
-COLOR_OF_BORDER_TIMER = (0, 255, 0)
+COLOR_OF_ALPHAS = (0, 0, 500)  # green, red, blue format
+COLOR_OF_SECONDS = (255, 255, 255)
+COLOR_OF_CORNERS = (0, 255, 0)
+COLOR_OF_ALPHAS_TIMER = (255, 0, 0)
+COLOR_OF_BORDER_TIMER = (255, 0, 0)
+COLOR_OF_SUPPORT_ALPHAS = (0, 0, 100)
+COLOR_OF_SUPPORT_ALPHAS_TIMER = (0, 0, 100)
+COLOR_OF_AMBIENT = (0, 0, 0)
 
-
-WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"]]
+WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"], ["twojnar", "kvorechu"]]
 
 RTC_MODULE = RTC()
-NEOLED = Pin(23, Pin.OUT)
-NEOLED_SECONDS = Pin(22, Pin.OUT)
-BUTTON = machine.Pin(4, machine.Pin.IN, machine.Pin.PULL_UP)
+NEOLED = Pin(15, Pin.OUT)
+NEOLED_SUPPORT = Pin(16, Pin.OUT)
+NEOLED_SECONDS = Pin(13, Pin.OUT)
+BUTTON = machine.Pin(11, machine.Pin.IN, machine.Pin.PULL_UP)
+
 
 NEOPIXEL_MAIN = neopixel.NeoPixel(NEOLED, 110)
-NEOPIXEL_SECONDS = neopixel.NeoPixel(NEOLED_SECONDS, 60)
+NEOPIXEL_SECONDS = neopixel.NeoPixel(NEOLED_SECONDS, 121)
+NEOPIXEL_MAIN_SUPPORT = neopixel.NeoPixel(NEOLED_SUPPORT, 12)
 
 DICTIONARY = [
     {
@@ -60,8 +65,8 @@ DICTIONARY = [
         25: [66, 67, 68, 69, 70, 71, 107, 108, 109],
         30: [71, 72, 73, 74, 75, 76],
         35: [71, 72, 73, 74, 75, 76, 107, 108, 109, 110],
-        40: [91, 92, 93, 94, 95, 96, 97],
-        45: [91, 92, 93, 94, 95, 96, 97, 107, 108, 109],
+        40: [90, 91, 92, 93, 94, 95, 96, 97],
+        45: [90, 91, 92, 93, 94, 95, 96, 97, 107, 108, 109],
         50: [99, 100, 101, 102, 103, 104, 105],
         55: [99, 100, 101, 102, 103, 104, 105, 107, 108, 109],
     },
@@ -173,21 +178,19 @@ def count_down(list_of_word_for_countdown):
     light_alphas_timer(list_of_word_for_countdown[0])
     for k in range(5):
         NEOPIXEL_SECONDS.fill(COLOR_OF_BORDER_TIMER)
-        j = 0
         for j in range(60):
-            NEOPIXEL_SECONDS[59 - j] = (0, 0, 0)
-            j += 1
+            NEOPIXEL_SECONDS[(59 - j) * 2] = (0, 0, 0)
             sleep(1)
             NEOPIXEL_SECONDS.write()
-        for j in range(4):
-            if 4 - k == 4 - j:
-                light_alphas_timer(list_of_word_for_countdown[j + 1])
-        if 4 - k == 0:
-            if list_of_word_for_countdown[0][0] == 14:
+        if k < 4:
+            light_alphas_timer(list_of_word_for_countdown[k + 1])
+
+        if k == 4:
+            if list_of_word_for_countdown == FIVE:
                 NEOPIXEL_MAIN.fill((0, 0, 0))
-            elif list_of_word_for_countdown[0][0] == 39:
+            elif list_of_word_for_countdown == TEN:
                 count_down(FIVE)
-            elif list_of_word_for_countdown[0][0] == 81:
+            elif list_of_word_for_countdown == FIFTEEN:
                 count_down(TEN)
         NEOPIXEL_MAIN.write()
 
@@ -231,7 +234,9 @@ def clock_mode():
     current_time = list(RTC_MODULE.datetime())
     hour_offset(current_time)
     hours = current_time[4]
-    minutes = current_time[5]
+    hours += 1
+    minutes = 50 #current_time[5]
+    print(hours, minutes) 
     clock_text = [0] * 110
     clock_dots = [False] * 4
     for j in range(1, 5):
@@ -256,22 +261,34 @@ def clock_mode():
 
     NEOPIXEL_MAIN.fill((0, 0, 0))
     NEOPIXEL_SECONDS.fill((0, 0, 0))
+    NEOPIXEL_MAIN_SUPPORT.fill((0, 0, 0))
+
+    # set ambient lighting
+    for j in range(121):
+        if j % 2 == 1:
+            NEOPIXEL_SECONDS[j] = COLOR_OF_AMBIENT
+
     row = 0
     for sublist in lists:
         for b, value in enumerate(sublist):
             if value is True:
                 index = b + 11 * row
-                if index < len(NEOPIXEL_MAIN):
+                if index < 100:
                     NEOPIXEL_MAIN[index] = COLOR_OF_ALPHAS
+                elif 110 > index >= 100:
+                    NEOPIXEL_MAIN_SUPPORT[index - 100] = COLOR_OF_SUPPORT_ALPHAS
         row += 1
+
     for index, content in enumerate(clock_dots):
         if content is True:
-            index = (15 * (1 + index)) - 1
+            index = ((15 * (1 + index)) - 1) * 2
             NEOPIXEL_SECONDS[index] = COLOR_OF_CORNERS
         else:
             pass
     NEOPIXEL_SECONDS.write()
     NEOPIXEL_MAIN.write()
+    NEOPIXEL_MAIN_SUPPORT.write()
+    print(lists)
     return clock_dots, current_time
 
 
@@ -283,9 +300,7 @@ ntptime.settime()
 
 print("Displaying time...")
 while True:
-    clock_mode()
-    dots = clock_mode()[0]
-    current_time_list = clock_mode()[1]
+    dots, current_time_list = clock_mode()
     for i in range(60 - current_time_list[6]):
         sleep(0.5)
         if BUTTON.value() == 0:
@@ -293,6 +308,9 @@ while True:
             count_down_mode()
             NEOPIXEL_SECONDS.fill((0, 0, 0))
             light_alphas_timer((35, 51, 70))
+            BUZZER.value(1)
+            sleep(1)
+            BUZZER.value(0)
             while True:
                 for i in ((0, 0, 0), (COLOR_OF_BORDER_TIMER)):
                     NEOPIXEL_SECONDS.fill(i)
@@ -302,11 +320,23 @@ while True:
                     sleep(0.1)
                     break
             break
+
         if (i in [14, 29, 44, 59]) and any(
             i == (14 + 15 * j) for j, dot in enumerate(dots) if dot
         ):
-            NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+            #doplnit indexy pro corners
+            if i == 14:
+                NEOPIXEL_SECONDS[15] = COLOR_OF_CORNERS
+            elif i == 29:
+                NEOPIXEL_SECONDS[30] = COLOR_OF_CORNERS
+            elif i == 44:
+                NEOPIXEL_SECONDS[45] = COLOR_OF_CORNERS
+            else:
+                NEOPIXEL_SECONDS[60] = COLOR_OF_CORNERS
+
         else:
-            NEOPIXEL_SECONDS[i] = COLOR_OF_SECONDS
+            NEOPIXEL_SECONDS[i * 2] = COLOR_OF_SECONDS
         NEOPIXEL_SECONDS.write()
+        
         sleep(0.5)
+

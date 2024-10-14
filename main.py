@@ -15,7 +15,7 @@ COLOR_OF_SUPPORT_ALPHAS = (0, 0, 100)
 COLOR_OF_SUPPORT_ALPHAS_TIMER = (0, 0, 100)
 COLOR_OF_AMBIENT = (0, 0, 0)
 
-WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"], ["twojnar", "kvorechu"]]
+WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"]]
 
 RTC_MODULE = RTC()
 NEOLED = Pin(15, Pin.OUT)

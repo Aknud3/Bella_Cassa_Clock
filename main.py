@@ -20,13 +20,14 @@ COLOR_OF_SUPPORT_ALPHAS_TIMER = (100, 0, 0)
 COLOR_OF_AMBIENT = (0, 255, 0)
 
 WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"], ["twojnar", "kvorechu"]]
-wdt = WDT(timeout=10000)
-
+wdt = WDT(timeout=100000000)
+wdt.feed()
 RTC_MODULE = RTC()
+
 NEOLED = Pin(15, Pin.OUT)
 NEOLED_SUPPORT = Pin(16, Pin.OUT)
 NEOLED_SECONDS = Pin(13, Pin.OUT)
-BUTTON = machine.Pin(11, machine.Pin.IN, machine.Pin.PULL_UP)
+BUTTON = Pin(27, Pin.IN)
 
 
 NEOPIXEL_MAIN = neopixel.NeoPixel(NEOLED, 110)
@@ -77,6 +78,7 @@ DICTIONARY = [
     },
 ]
 
+
 FIVE = (
     (14, 15, 16),
     (61, 62, 63, 64, 65),
@@ -98,6 +100,7 @@ FIFTEEN = (
     (26, 27, 28, 29, 30, 31, 32),
     (47, 48, 49, 50, 51, 52, 53, 54),
 )
+
 
 network.phy_mode(network.MODE_11G)
 ap = network.WLAN(network.AP_IF)
@@ -310,7 +313,7 @@ while True:
     dots, current_time_list = clock_mode()
     for i in range(60 - current_time_list[6]):
         sleep(0.5)
-        if BUTTON.value() == 0:
+        if BUTTON.value() == 1:
             print("This is countdown")
             count_down_mode()
             NEOPIXEL_SECONDS.fill((0, 0, 0))

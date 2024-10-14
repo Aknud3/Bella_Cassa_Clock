@@ -1,10 +1,14 @@
 from time import sleep_ms, time, sleep
-from machine import RTC, Pin
+from machine import RTC, Pin, WDT
 import machine
 import neopixel
 import network
 import socket
 import ntptime
+import gc
+
+print(gc.mem_free())
+
 
 COLOR_OF_ALPHAS = (0, 0, 500)  # green, red, blue format
 COLOR_OF_SECONDS = (255, 255, 255)
@@ -16,6 +20,7 @@ COLOR_OF_SUPPORT_ALPHAS_TIMER = (100, 0, 0)
 COLOR_OF_AMBIENT = (0, 255, 0)
 
 WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"], ["twojnar", "kvorechu"]]
+wdt = WDT(timeout=10000)
 
 RTC_MODULE = RTC()
 NEOLED = Pin(15, Pin.OUT)
@@ -292,7 +297,7 @@ def clock_mode():
     print(lists)
     return clock_dots, current_time
 
-
+wdt.feed()
 print("System starting...")
 while not isconnected():
     connect()
@@ -301,6 +306,7 @@ ntptime.settime()
 
 print("Displaying time...")
 while True:
+    wdt.feed()
     dots, current_time_list = clock_mode()
     for i in range(60 - current_time_list[6]):
         sleep(0.5)

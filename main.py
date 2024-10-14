@@ -9,13 +9,13 @@ import ntptime
 COLOR_OF_ALPHAS = (0, 0, 500)  # green, red, blue format
 COLOR_OF_SECONDS = (255, 255, 255)
 COLOR_OF_CORNERS = (0, 255, 0)
-COLOR_OF_ALPHAS_TIMER = (255, 0, 0)
+COLOR_OF_ALPHAS_TIMER = (0, 500, 0)
 COLOR_OF_BORDER_TIMER = (255, 0, 0)
 COLOR_OF_SUPPORT_ALPHAS = (0, 0, 100)
-COLOR_OF_SUPPORT_ALPHAS_TIMER = (0, 0, 100)
-COLOR_OF_AMBIENT = (0, 0, 0)
+COLOR_OF_SUPPORT_ALPHAS_TIMER = (100, 0, 0)
+COLOR_OF_AMBIENT = (0, 255, 0)
 
-WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"]]
+WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"], ["twojnar", "kvorechu"]]
 
 RTC_MODULE = RTC()
 NEOLED = Pin(15, Pin.OUT)
@@ -26,7 +26,7 @@ BUTTON = machine.Pin(11, machine.Pin.IN, machine.Pin.PULL_UP)
 
 NEOPIXEL_MAIN = neopixel.NeoPixel(NEOLED, 110)
 NEOPIXEL_SECONDS = neopixel.NeoPixel(NEOLED_SECONDS, 121)
-NEOPIXEL_MAIN_SUPPORT = neopixel.NeoPixel(NEOLED_SUPPORT, 12)
+NEOPIXEL_MAIN_SUPPORT = neopixel.NeoPixel(NEOLED_SUPPORT, 11)
 
 DICTIONARY = [
     {
@@ -162,11 +162,12 @@ def hour_offset(current_time):
             summer_time = True
         else:
             pass
-    elif current_time[1] == 10 and current_time[2] >= 25:
+    elif current_time[1] == 10 and current_time[2] <= 25:
         if 7 - current_time[3] + current_time[2] >= 31:
             pass
         else:
             summer_time = True
+            
     if summer_time:
         current_time[4] += 2
     else:
@@ -234,8 +235,8 @@ def clock_mode():
     current_time = list(RTC_MODULE.datetime())
     hour_offset(current_time)
     hours = current_time[4]
-    hours += 1
-    minutes = 50 #current_time[5]
+    #hours += 1
+    minutes = current_time[5]
     print(hours, minutes) 
     clock_text = [0] * 110
     clock_dots = [False] * 4
@@ -339,4 +340,3 @@ while True:
         NEOPIXEL_SECONDS.write()
         
         sleep(0.5)
-

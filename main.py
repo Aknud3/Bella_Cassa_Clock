@@ -17,7 +17,7 @@ COLOR_OF_ALPHAS_TIMER = (0, 500, 0)
 COLOR_OF_BORDER_TIMER = (255, 0, 0)
 COLOR_OF_SUPPORT_ALPHAS = (0, 0, 100)
 COLOR_OF_SUPPORT_ALPHAS_TIMER = (100, 0, 0)
-COLOR_OF_AMBIENT = (0, 255, 0)
+COLOR_OF_AMBIENT = (255, 0, 0)
 
 WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"], ["twojnar", "kvorechu"]]
 wdt = WDT(timeout=100000000)
@@ -349,3 +349,4 @@ while True:
         NEOPIXEL_SECONDS.write()
         
         sleep(0.5)
+

@@ -215,13 +215,13 @@ def light_alphas_timer(area):
 def count_down_mode():
     "function to count down mode"
     mode = 0
-    for neo in (NEOPIXEL_MAIN, NEOPIXEL_SECONDS):
+    for neo in (NEOPIXEL_MAIN, NEOPIXEL_SECONDS, NEOPIXEL_MAIN_SUPPORT):
         neo.fill((0, 0, 0))
         neo.write()
     light_alphas_timer((14, 15, 16))
     for _ in range(10):
         sleep(0.5)
-        if BUTTON.value() == 0:
+        if BUTTON.value() == 1:
             sleep(0.5)
             mode += 1
             if mode == 1:
@@ -273,8 +273,8 @@ def clock_mode():
     NEOPIXEL_MAIN_SUPPORT.fill((0, 0, 0))
 
     # set ambient lighting
-    for j in range(121):
-        if j % 2 == 1:
+    for j in range(120):
+        if j % 2 != 1:
             NEOPIXEL_SECONDS[j] = COLOR_OF_AMBIENT
 
     row = 0
@@ -282,10 +282,10 @@ def clock_mode():
         for b, value in enumerate(sublist):
             if value is True:
                 index = b + 11 * row
-                if index < 100:
+                if index < 99:
                     NEOPIXEL_MAIN[index] = COLOR_OF_ALPHAS
-                elif 110 > index >= 100:
-                    NEOPIXEL_MAIN_SUPPORT[index - 100] = COLOR_OF_SUPPORT_ALPHAS
+                elif 110 >= index >= 99:
+                    NEOPIXEL_MAIN_SUPPORT[(index - 99)] = COLOR_OF_SUPPORT_ALPHAS
         row += 1
 
     for index, content in enumerate(clock_dots):
@@ -313,7 +313,7 @@ while True:
     dots, current_time_list = clock_mode()
     for i in range(60 - current_time_list[6]):
         sleep(0.5)
-        if BUTTON.value() == 1:
+        if BUTTON.value() == 2:
             print("This is countdown")
             count_down_mode()
             NEOPIXEL_SECONDS.fill((0, 0, 0))
@@ -326,7 +326,7 @@ while True:
                     NEOPIXEL_SECONDS.fill(i)
                     NEOPIXEL_SECONDS.write()
                     sleep(0.5)
-                if BUTTON.value() == 0:
+                if BUTTON.value() == 1:
                     sleep(0.1)
                     break
             break
@@ -345,8 +345,7 @@ while True:
                 NEOPIXEL_SECONDS[60] = COLOR_OF_CORNERS
 
         else:
-            NEOPIXEL_SECONDS[i * 2] = COLOR_OF_SECONDS
+            NEOPIXEL_SECONDS[i for i in range(1, 120, 2)] = COLOR_OF_SECONDS
         NEOPIXEL_SECONDS.write()
         
         sleep(0.5)
-

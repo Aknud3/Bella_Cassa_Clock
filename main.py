@@ -31,7 +31,7 @@ BUTTON = Pin(27, Pin.IN)
 
 
 NEOPIXEL_MAIN = neopixel.NeoPixel(NEOLED, 110)
-NEOPIXEL_SECONDS = neopixel.NeoPixel(NEOLED_SECONDS, 121)
+NEOPIXEL_SECONDS = neopixel.NeoPixel(NEOLED_SECONDS, 140)
 NEOPIXEL_MAIN_SUPPORT = neopixel.NeoPixel(NEOLED_SUPPORT, 11)
 
 DICTIONARY = [
@@ -273,7 +273,7 @@ def clock_mode():
     NEOPIXEL_MAIN_SUPPORT.fill((0, 0, 0))
 
     # set ambient lighting
-    for j in range(120):
+    for j in range(140):
         if j % 2 != 1:
             NEOPIXEL_SECONDS[j] = COLOR_OF_AMBIENT
 
@@ -290,7 +290,7 @@ def clock_mode():
 
     for index, content in enumerate(clock_dots):
         if content is True:
-            index = ((15 * (1 + index)) - 1) * 2
+            index = (1) # (32) (65) (98)
             NEOPIXEL_SECONDS[index] = COLOR_OF_CORNERS
         else:
             pass
@@ -331,21 +331,22 @@ while True:
                     break
             break
 
-        if (i in [14, 29, 44, 59]) and any(
-            i == (14 + 15 * j) for j, dot in enumerate(dots) if dot
-        ):
+        # if (i in [1, 32, 65, 98) and any(
+            #i == (14 + 15 * j) for j, dot in enumerate(dots) if dot
+     #   ):
             #doplnit indexy pro corners
-            if i == 14:
-                NEOPIXEL_SECONDS[15] = COLOR_OF_CORNERS
-            elif i == 29:
-                NEOPIXEL_SECONDS[30] = COLOR_OF_CORNERS
-            elif i == 44:
-                NEOPIXEL_SECONDS[45] = COLOR_OF_CORNERS
-            else:
-                NEOPIXEL_SECONDS[60] = COLOR_OF_CORNERS
+        if i == 1:
+                NEOPIXEL_SECONDS[1] = COLOR_OF_CORNERS
+        elif i == 14:
+                NEOPIXEL_SECONDS[33] = COLOR_OF_CORNERS
+        elif i == 29:
+                NEOPIXEL_SECONDS[65] = COLOR_OF_CORNERS
+        elif i == 59:
+                NEOPIXEL_SECONDS[98] = COLOR_OF_CORNERS
 
         else:
-            NEOPIXEL_SECONDS[i for i in range(1, 120, 2)] = COLOR_OF_SECONDS
+            NEOPIXEL_SECONDS[(i * 2) + 1] = COLOR_OF_SECONDS
         NEOPIXEL_SECONDS.write()
         
         sleep(0.5)
+

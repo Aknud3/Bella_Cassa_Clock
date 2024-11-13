@@ -9,15 +9,25 @@ import gc
 
 print(gc.mem_free())
 
+# tady potřebuju oranžové barvy aby se to hodilo do učebny
 
-COLOR_OF_ALPHAS = (0, 0, 500)  # green, red, blue format
-COLOR_OF_SECONDS = (255, 255, 255)
-COLOR_OF_CORNERS = (0, 255, 0)
+COLOR_OF_ALPHAS = (184, 255, 0)  # green, red, blue format
 COLOR_OF_ALPHAS_TIMER = (0, 500, 0)
-COLOR_OF_BORDER_TIMER = (255, 0, 0)
-COLOR_OF_SUPPORT_ALPHAS = (0, 0, 100)
+
+COLOR_OF_SECONDS = (128, 128, 128) # RGB
+COLOR_OF_CORNERS = (0, 0, 128)
+COLOR_OF_BORDER_TIMER = (128, 0, 0)
+COLOR_OF_AMBIENT = (255, 184, 0)
+
+COLOR_OF_SUPPORT_ALPHAS = (255/5, 184/5)
 COLOR_OF_SUPPORT_ALPHAS_TIMER = (100, 0, 0)
-COLOR_OF_AMBIENT = (255, 0, 0)
+
+FIRST_CORNER_INDEX = 1
+SECOND_CORNER_INDEX = 32
+THIRD_CORNER_INDEX = 65
+FOURTH_CORNER_INDEX = 98
+
+BUTTON_PRESS = 2
 
 WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"], ["twojnar", "kvorechu"]]
 wdt = WDT(timeout=100000000)
@@ -34,6 +44,68 @@ NEOPIXEL_MAIN = neopixel.NeoPixel(NEOLED, 110)
 NEOPIXEL_SECONDS = neopixel.NeoPixel(NEOLED_SECONDS, 140)
 NEOPIXEL_MAIN_SUPPORT = neopixel.NeoPixel(NEOLED_SUPPORT, 11)
 
+DEMON = {
+    0: FIRST_CORNER_INDEX,
+    1: 3,
+    2: 5,
+    3: 7,
+    4: 9,
+    5: 11,
+    6: 13,
+    7: 15,
+    8: 17,
+    9: 19,
+    10: 21,
+    11: 23,
+    12: 25,
+    13: 27,
+    14: SECOND_CORNER_INDEX, 
+    15: 
+    16:
+    17:
+    18:
+    19:
+    20:
+    21:
+    22:
+    23:
+    24:
+    25:
+    26:
+    27:
+    28:
+    29: THIRD_CORNER_INDEX
+    30:
+    31:
+    32:
+    33:
+    34:
+    35:
+    36:
+    37:
+    38:
+    39:
+    40:
+    41:
+    42:
+    43:
+    44: FOURTH_CORNER_INDEX 
+    45:
+    46:
+    47:
+    48:
+    49:
+    50:
+    51:
+    52:
+    53:
+    54:
+    55:
+    56:
+    57:
+    58:
+    59:
+}
 DICTIONARY = [
     {
         0: [26, 27, 28, 29, 30, 31, 32],
@@ -175,7 +247,7 @@ def hour_offset(current_time):
             pass
         else:
             summer_time = True
-            
+
     if summer_time:
         current_time[4] += 2
     else:
@@ -184,11 +256,13 @@ def hour_offset(current_time):
 
 def count_down(list_of_word_for_countdown):
     "function to count down"
+    # tady je hodně velkej demon
     light_alphas_timer(list_of_word_for_countdown[0])
     for k in range(5):
         NEOPIXEL_SECONDS.fill(COLOR_OF_BORDER_TIMER)
+        NEOPIXEL_SECONDS.write()
         for j in range(60):
-            NEOPIXEL_SECONDS[(59 - j) * 2] = (0, 0, 0)
+            NEOPIXEL_SECONDS[DEMON[59 - j]] = (0, 0, 0)
             sleep(1)
             NEOPIXEL_SECONDS.write()
         if k < 4:
@@ -221,7 +295,7 @@ def count_down_mode():
     light_alphas_timer((14, 15, 16))
     for _ in range(10):
         sleep(0.5)
-        if BUTTON.value() == 1:
+        if BUTTON.value() == BUTTON_PRESS:
             sleep(0.5)
             mode += 1
             if mode == 1:
@@ -243,9 +317,8 @@ def clock_mode():
     current_time = list(RTC_MODULE.datetime())
     hour_offset(current_time)
     hours = current_time[4]
-    #hours += 1
     minutes = current_time[5]
-    print(hours, minutes) 
+    print(hours, minutes)
     clock_text = [0] * 110
     clock_dots = [False] * 4
     for j in range(1, 5):
@@ -288,17 +361,37 @@ def clock_mode():
                     NEOPIXEL_MAIN_SUPPORT[(index - 99)] = COLOR_OF_SUPPORT_ALPHAS
         row += 1
 
-    for index, content in enumerate(clock_dots):
+    # tady bude ultra demonek
+    corners = 0
+    for content in clock_dots:
         if content is True:
-            index = (1) # (32) (65) (98)
-            NEOPIXEL_SECONDS[index] = COLOR_OF_CORNERS
+            corners += 1
         else:
             pass
+
+        if corners == 1:
+            NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
+        elif corners == 2:
+            for _ in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX):
+                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+        elif corners == 3:
+            for _ in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX, THIRD_CORNER_INDEX):
+                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+        elif corners == 4:
+            for _ in (
+                FIRST_CORNER_INDEX,
+                SECOND_CORNER_INDEX,
+                THIRD_CORNER_INDEX,
+                FOURTH_CORNER_INDEX,
+            ):
+                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+
     NEOPIXEL_SECONDS.write()
     NEOPIXEL_MAIN.write()
     NEOPIXEL_MAIN_SUPPORT.write()
     print(lists)
-    return clock_dots, current_time
+    return clock_dots, current_time, corners
+
 
 wdt.feed()
 print("System starting...")
@@ -310,43 +403,41 @@ ntptime.settime()
 print("Displaying time...")
 while True:
     wdt.feed()
-    dots, current_time_list = clock_mode()
+    dots, current_time_list, cornerss = clock_mode()
     for i in range(60 - current_time_list[6]):
         sleep(0.5)
-        if BUTTON.value() == 2:
+
+
+        if BUTTON.value() == BUTTON_PRESS:
             print("This is countdown")
             count_down_mode()
             NEOPIXEL_SECONDS.fill((0, 0, 0))
             light_alphas_timer((35, 51, 70))
-            BUZZER.value(1)
-            sleep(1)
-            BUZZER.value(0)
+
+
             while True:
-                for i in ((0, 0, 0), (COLOR_OF_BORDER_TIMER)):
-                    NEOPIXEL_SECONDS.fill(i)
+                for color in ((0, 0, 0), COLOR_OF_BORDER_TIMER):
+                    NEOPIXEL_SECONDS.fill(color)
                     NEOPIXEL_SECONDS.write()
                     sleep(0.5)
-                if BUTTON.value() == 1:
+
+                if BUTTON.value() == BUTTON_PRESS:
                     sleep(0.1)
                     break
             break
 
-        # if (i in [1, 32, 65, 98) and any(
-            #i == (14 + 15 * j) for j, dot in enumerate(dots) if dot
-     #   ):
-            #doplnit indexy pro corners
-        if i == 1:
-                NEOPIXEL_SECONDS[1] = COLOR_OF_CORNERS
-        elif i == 14:
-                NEOPIXEL_SECONDS[33] = COLOR_OF_CORNERS
-        elif i == 29:
-                NEOPIXEL_SECONDS[65] = COLOR_OF_CORNERS
-        elif i == 59:
-                NEOPIXEL_SECONDS[98] = COLOR_OF_CORNERS
 
+        # tady byl demon v kodu
+        if i == FIRST_CORNER_INDEX and cornerss >= 1:
+            NEOPIXEL_SECONDS[1] = COLOR_OF_CORNERS
+        elif i ==  SECOND_CORNER_INDEX and cornerss >= 2:
+            NEOPIXEL_SECONDS[33] = COLOR_OF_CORNERS
+        elif i == THIRD_CORNER_INDEX and cornerss >= 3:
+            NEOPIXEL_SECONDS[65] = COLOR_OF_CORNERS
+        elif i == FOURTH_CORNER_INDEX and cornerss >= 4:
+            NEOPIXEL_SECONDS[98] = COLOR_OF_CORNERS
         else:
-            NEOPIXEL_SECONDS[(i * 2) + 1] = COLOR_OF_SECONDS
-        NEOPIXEL_SECONDS.write()
-        
-        sleep(0.5)
+            NEOPIXEL_SECONDS[DEMON[i]] = COLOR_OF_SECONDS
 
+        NEOPIXEL_SECONDS.write()
+        sleep(0.5)

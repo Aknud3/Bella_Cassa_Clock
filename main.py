@@ -428,14 +428,14 @@ while True:
 
 
         # tady byl demon v kodu
-        if i == FIRST_CORNER_INDEX and cornerss >= 1:
-            NEOPIXEL_SECONDS[1] = COLOR_OF_CORNERS
-        elif i ==  SECOND_CORNER_INDEX and cornerss >= 2:
-            NEOPIXEL_SECONDS[33] = COLOR_OF_CORNERS
-        elif i == THIRD_CORNER_INDEX and cornerss >= 3:
-            NEOPIXEL_SECONDS[65] = COLOR_OF_CORNERS
-        elif i == FOURTH_CORNER_INDEX and cornerss >= 4:
-            NEOPIXEL_SECONDS[98] = COLOR_OF_CORNERS
+        if i == 1 and cornerss >= 1:
+            NEOPIXEL_SECONDS[FIRST_CORNER_INDEX ] = COLOR_OF_CORNERS
+        elif i ==  14 and cornerss >= 2:
+            NEOPIXEL_SECONDS[SECOND_CORNER_INDEX] = COLOR_OF_CORNERS
+        elif i == 29 and cornerss >= 3:
+            NEOPIXEL_SECONDS[THIRD_CORNER_INDEX] = COLOR_OF_CORNERS
+        elif i == 44 and cornerss >= 4:
+            NEOPIXEL_SECONDS[FOURTH_CORNER_INDEX] = COLOR_OF_CORNERS
         else:
             NEOPIXEL_SECONDS[DEMON[i]] = COLOR_OF_SECONDS
 

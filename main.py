@@ -11,21 +11,21 @@ print(gc.mem_free())
 
 # tady potřebuju oranžové barvy aby se to hodilo do učebny
 
-COLOR_OF_ALPHAS = (184, 255, 0)  # green, red, blue format
+COLOR_OF_ALPHAS = (184*5, 255*5, 0)  # green, red, blue format
 COLOR_OF_ALPHAS_TIMER = (0, 500, 0)
 
-COLOR_OF_SECONDS = (128, 128, 128) # RGB
+COLOR_OF_SECONDS = (2, 2, 2) # RGB
 COLOR_OF_CORNERS = (0, 0, 128)
 COLOR_OF_BORDER_TIMER = (128, 0, 0)
 COLOR_OF_AMBIENT = (255, 184, 0)
 
-COLOR_OF_SUPPORT_ALPHAS = (255/5, 184/5)
+COLOR_OF_SUPPORT_ALPHAS = (51, 30, 0)
 COLOR_OF_SUPPORT_ALPHAS_TIMER = (100, 0, 0)
 
 FIRST_CORNER_INDEX = 1
-SECOND_CORNER_INDEX = 32
+SECOND_CORNER_INDEX = 33
 THIRD_CORNER_INDEX = 65
-FOURTH_CORNER_INDEX = 98
+FOURTH_CORNER_INDEX = 97
 
 BUTTON_PRESS = 2
 
@@ -59,52 +59,52 @@ DEMON = {
     11: 23,
     12: 25,
     13: 27,
-    14: SECOND_CORNER_INDEX, 
-    15: 
-    16:
-    17:
-    18:
-    19:
-    20:
-    21:
-    22:
-    23:
-    24:
-    25:
-    26:
-    27:
-    28:
-    29: THIRD_CORNER_INDEX
-    30:
-    31:
-    32:
-    33:
-    34:
-    35:
-    36:
-    37:
-    38:
-    39:
-    40:
-    41:
-    42:
-    43:
-    44: FOURTH_CORNER_INDEX 
-    45:
-    46:
-    47:
-    48:
-    49:
-    50:
-    51:
-    52:
-    53:
-    54:
-    55:
-    56:
-    57:
-    58:
-    59:
+    14: 29, 
+    15: SECOND_CORNER_INDEX,
+    16: 35,
+    17: 37,
+    18: 39,
+    19: 41,
+    20: 43,
+    21: 45,
+    22: 47,
+    23: 49,
+    24: 51,
+    25: 53,
+    26: 55,
+    27: 57,
+    28: 59,
+    29: 61,
+    30: THIRD_CORNER_INDEX,
+    31: 67,
+    32: 69,
+    33: 71,
+    34: 73,
+    35: 75,
+    36: 77,
+    37: 79,
+    38: 81,
+    39: 83,
+    40: 85,
+    41: 87,
+    42: 89,
+    43: 91,
+    44: 93,
+    45: FOURTH_CORNER_INDEX,
+    46: 99,
+    47: 101,
+    48: 103,
+    49: 105,
+    50: 107, 
+    51: 109,
+    52: 111,
+    53: 113,
+    54: 115,
+    55: 117,
+    56: 119,
+    57: 121,
+    58: 123,
+    59: 125,
 }
 DICTIONARY = [
     {
@@ -317,7 +317,7 @@ def clock_mode():
     current_time = list(RTC_MODULE.datetime())
     hour_offset(current_time)
     hours = current_time[4]
-    minutes = current_time[5]
+    minutes =  current_time[5]
     print(hours, minutes)
     clock_text = [0] * 110
     clock_dots = [False] * 4
@@ -351,13 +351,15 @@ def clock_mode():
             NEOPIXEL_SECONDS[j] = COLOR_OF_AMBIENT
 
     row = 0
+    print(lists)
     for sublist in lists:
         for b, value in enumerate(sublist):
             if value is True:
                 index = b + 11 * row
+                print(index)
                 if index < 99:
                     NEOPIXEL_MAIN[index] = COLOR_OF_ALPHAS
-                elif 110 >= index >= 99:
+                elif 110 >= index and index >= 99:
                     NEOPIXEL_MAIN_SUPPORT[(index - 99)] = COLOR_OF_SUPPORT_ALPHAS
         row += 1
 
@@ -372,13 +374,13 @@ def clock_mode():
         if corners == 1:
             NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
         elif corners == 2:
-            for _ in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX):
+            for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX):
                 NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
         elif corners == 3:
-            for _ in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX, THIRD_CORNER_INDEX):
+            for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX, THIRD_CORNER_INDEX):
                 NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
         elif corners == 4:
-            for _ in (
+            for i in (
                 FIRST_CORNER_INDEX,
                 SECOND_CORNER_INDEX,
                 THIRD_CORNER_INDEX,
@@ -427,17 +429,26 @@ while True:
             break
 
 
-        # tady byl demon v kodu
-        if i == 1 and cornerss >= 1:
-            NEOPIXEL_SECONDS[FIRST_CORNER_INDEX ] = COLOR_OF_CORNERS
-        elif i ==  14 and cornerss >= 2:
-            NEOPIXEL_SECONDS[SECOND_CORNER_INDEX] = COLOR_OF_CORNERS
-        elif i == 29 and cornerss >= 3:
-            NEOPIXEL_SECONDS[THIRD_CORNER_INDEX] = COLOR_OF_CORNERS
-        elif i == 44 and cornerss >= 4:
-            NEOPIXEL_SECONDS[FOURTH_CORNER_INDEX] = COLOR_OF_CORNERS
-        else:
-            NEOPIXEL_SECONDS[DEMON[i]] = COLOR_OF_SECONDS
+        
+        NEOPIXEL_SECONDS[DEMON[i]] = COLOR_OF_SECONDS
+        
+        if cornerss == 1:
+            NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
+        elif cornerss == 2:
+            for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX):
+                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+        elif cornerss == 3:
+            for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX, THIRD_CORNER_INDEX):
+                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+        elif cornerss == 4:
+            for i in (
+                FIRST_CORNER_INDEX,
+                SECOND_CORNER_INDEX,
+                THIRD_CORNER_INDEX,
+                FOURTH_CORNER_INDEX,
+            ):
+                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
 
         NEOPIXEL_SECONDS.write()
         sleep(0.5)
+

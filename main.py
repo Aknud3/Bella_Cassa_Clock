@@ -412,7 +412,7 @@ while True:
         
         NEOPIXEL_SECONDS[DEMON[i]] = COLOR_OF_SECONDS
 
-        for j in range(cornerrs):
+        for j in range(cornerss):
             if cornerss == 1 and i != 1 and j == 0:
                 NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
             if cornerss == 2 and i != 15 and j == 1:

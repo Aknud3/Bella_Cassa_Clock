@@ -318,7 +318,6 @@ def clock_mode():
     hour_offset(current_time)
     hours = current_time[4]
     minutes =  current_time[5]
-    print(hours, minutes)
     clock_text = [0] * 110
     clock_dots = [False] * 4
     for j in range(1, 5):
@@ -351,12 +350,10 @@ def clock_mode():
             NEOPIXEL_SECONDS[j] = COLOR_OF_AMBIENT
 
     row = 0
-    print(lists)
     for sublist in lists:
         for b, value in enumerate(sublist):
             if value is True:
                 index = b + 11 * row
-                print(index)
                 if index < 99:
                     NEOPIXEL_MAIN[index] = COLOR_OF_ALPHAS
                 elif 110 >= index and index >= 99:
@@ -371,24 +368,19 @@ def clock_mode():
         else:
             pass
 
-     #   if corners == 1:
-      #      NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
-       # elif corners == 2:
-        #    for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX):
-         #       NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
-        #elif corners == 3:
-         #   for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX, THIRD_CORNER_INDEX):
-          #      NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
-        #elif corners == 4:
-         #   for i in (
-          #      FIRST_CORNER_INDEX,
-           #     SECOND_CORNER_INDEX,
-            #    THIRD_CORNER_INDEX,
-             #   FOURTH_CORNER_INDEX,
-            #):
-             #   NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
-
-    # NEOPIXEL_SECONDS.write()
+    if corners == 1:
+        NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
+    elif corners == 2:
+        for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX):
+            NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+    elif corners == 3:
+        for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX, THIRD_CORNER_INDEX):
+            NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+    elif corners == 4:
+        for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX, THIRD_CORNER_INDEX, FOURTH_CORNER_INDEX):
+            NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+            
+    NEOPIXEL_SECONDS.write()
 
     NEOPIXEL_MAIN.write()
     NEOPIXEL_MAIN_SUPPORT.write()
@@ -407,23 +399,27 @@ print("Displaying time...")
 while True:
     wdt.feed()
     current_time_list, cornerss = clock_mode()
+    if current_time_list[6] == 1:
+        current_time_list[6] -= 1
     for i in range(60 - current_time_list[6]):
-        sleep(1)
         
         NEOPIXEL_SECONDS[DEMON[i]] = COLOR_OF_SECONDS
-
-        for j in range(cornerss):
-            if cornerss == 1 and i != 1 and j == 0:
-                NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
-            if cornerss == 2 and i != 15 and j == 1:
-                NEOPIXEL_SECONDS[SECOND_CORNER_INDEX] = COLOR_OF_CORNERS
-            if cornerss == 3 and i != 30 and j == 2:
-                NEOPIXEL_SECONDS[THIRD_CORNER_INDEX] = COLOR_OF_CORNERS
-            if cornerss == 4 and i != 45 and j == 3:
-                NEOPIXEL_SECONDS[FOURTH_CORNER_INDEX] = COLOR_OF_CORNERS
-
         
+        if cornerss >= 1  and i != 0:
+            NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
+                
+        if cornerss >= 2 and i != 15:
+            NEOPIXEL_SECONDS[SECOND_CORNER_INDEX] = COLOR_OF_CORNERS
+        if cornerss >= 3 and i != 30:
+            NEOPIXEL_SECONDS[THIRD_CORNER_INDEX] = COLOR_OF_CORNERS
+        if cornerss == 4 and i != 45:
+            NEOPIXEL_SECONDS[FOURTH_CORNER_INDEX] = COLOR_OF_CORNERS
+        
+        print(i)
+        if i == 59:
+            NEOPIXEL_SECONDS[125] = COLOR_OF_SECONDS
         NEOPIXEL_SECONDS.write()
+        sleep(1)
 
   #if BUTTON.value() == BUTTON_PRESS:
            # print("This is countdown")
@@ -442,4 +438,5 @@ while True:
                  #   sleep(0.1)
                   #  break
            # break
+
 

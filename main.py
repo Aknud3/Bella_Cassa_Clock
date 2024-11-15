@@ -15,9 +15,9 @@ COLOR_OF_ALPHAS = (184*5, 255*5, 0)  # green, red, blue format
 COLOR_OF_ALPHAS_TIMER = (0, 500, 0)
 
 COLOR_OF_SECONDS = (2, 2, 2) # RGB
-COLOR_OF_CORNERS = (0, 0, 128)
+COLOR_OF_CORNERS = (0, 0, 64)
 COLOR_OF_BORDER_TIMER = (128, 0, 0)
-COLOR_OF_AMBIENT = (255, 184, 0)
+COLOR_OF_AMBIENT = (0, 0, 0)
 
 COLOR_OF_SUPPORT_ALPHAS = (51, 30, 0)
 COLOR_OF_SUPPORT_ALPHAS_TIMER = (100, 0, 0)
@@ -371,28 +371,28 @@ def clock_mode():
         else:
             pass
 
-        if corners == 1:
-            NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
-        elif corners == 2:
-            for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX):
-                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
-        elif corners == 3:
-            for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX, THIRD_CORNER_INDEX):
-                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
-        elif corners == 4:
-            for i in (
-                FIRST_CORNER_INDEX,
-                SECOND_CORNER_INDEX,
-                THIRD_CORNER_INDEX,
-                FOURTH_CORNER_INDEX,
-            ):
-                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+     #   if corners == 1:
+      #      NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
+       # elif corners == 2:
+        #    for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX):
+         #       NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+        #elif corners == 3:
+         #   for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX, THIRD_CORNER_INDEX):
+          #      NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
+        #elif corners == 4:
+         #   for i in (
+          #      FIRST_CORNER_INDEX,
+           #     SECOND_CORNER_INDEX,
+            #    THIRD_CORNER_INDEX,
+             #   FOURTH_CORNER_INDEX,
+            #):
+             #   NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
 
-    NEOPIXEL_SECONDS.write()
+    # NEOPIXEL_SECONDS.write()
+
     NEOPIXEL_MAIN.write()
     NEOPIXEL_MAIN_SUPPORT.write()
-    print(lists)
-    return clock_dots, current_time, corners
+    return current_time, corners
 
 
 wdt.feed()
@@ -403,52 +403,43 @@ print("Connected")
 ntptime.settime()
 
 print("Displaying time...")
+
 while True:
     wdt.feed()
-    dots, current_time_list, cornerss = clock_mode()
+    current_time_list, cornerss = clock_mode()
     for i in range(60 - current_time_list[6]):
-        sleep(0.5)
-
-
-        if BUTTON.value() == BUTTON_PRESS:
-            print("This is countdown")
-            count_down_mode()
-            NEOPIXEL_SECONDS.fill((0, 0, 0))
-            light_alphas_timer((35, 51, 70))
-
-
-            while True:
-                for color in ((0, 0, 0), COLOR_OF_BORDER_TIMER):
-                    NEOPIXEL_SECONDS.fill(color)
-                    NEOPIXEL_SECONDS.write()
-                    sleep(0.5)
-
-                if BUTTON.value() == BUTTON_PRESS:
-                    sleep(0.1)
-                    break
-            break
-
-
+        sleep(1)
         
         NEOPIXEL_SECONDS[DEMON[i]] = COLOR_OF_SECONDS
-        
-        if cornerss == 1:
-            NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
-        elif cornerss == 2:
-            for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX):
-                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
-        elif cornerss == 3:
-            for i in (FIRST_CORNER_INDEX, SECOND_CORNER_INDEX, THIRD_CORNER_INDEX):
-                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
-        elif cornerss == 4:
-            for i in (
-                FIRST_CORNER_INDEX,
-                SECOND_CORNER_INDEX,
-                THIRD_CORNER_INDEX,
-                FOURTH_CORNER_INDEX,
-            ):
-                NEOPIXEL_SECONDS[i] = COLOR_OF_CORNERS
 
+        for j in range(cornerrs):
+            if cornerss == 1 and i != 1 and j == 0:
+                NEOPIXEL_SECONDS[FIRST_CORNER_INDEX] = COLOR_OF_CORNERS
+            if cornerss == 2 and i != 15 and j == 1:
+                NEOPIXEL_SECONDS[SECOND_CORNER_INDEX] = COLOR_OF_CORNERS
+            if cornerss == 3 and i != 30 and j == 2:
+                NEOPIXEL_SECONDS[THIRD_CORNER_INDEX] = COLOR_OF_CORNERS
+            if cornerss == 4 and i != 45 and j == 3:
+                NEOPIXEL_SECONDS[FOURTH_CORNER_INDEX] = COLOR_OF_CORNERS
+
+        
         NEOPIXEL_SECONDS.write()
-        sleep(0.5)
+
+  #if BUTTON.value() == BUTTON_PRESS:
+           # print("This is countdown")
+            #count_down_mode()
+            #NEOPIXEL_SECONDS.fill((0, 0, 0))
+            #light_alphas_timer((35, 51, 70))
+
+
+            #while True:
+             #   for color in ((0, 0, 0), COLOR_OF_BORDER_TIMER):
+              #      NEOPIXEL_SECONDS.fill(color)
+               #     NEOPIXEL_SECONDS.write()
+                #    sleep(0.5)
+
+                #if BUTTON.value() == BUTTON_PRESS:
+                 #   sleep(0.1)
+                  #  break
+           # break
 

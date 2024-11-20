@@ -29,7 +29,7 @@ FOURTH_CORNER_INDEX = 97
 
 BUTTON_PRESS = 2
 
-WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"], ["twojnar", "kvorechu"]]
+WIFI_LOGINS = [["GMH", "covidgmh"], ["ESP", "espgmhco2"]]
 wdt = WDT(timeout=100000000)
 wdt.feed()
 RTC_MODULE = RTC()

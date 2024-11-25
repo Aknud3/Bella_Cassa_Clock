@@ -48,7 +48,7 @@ Výsledek mojí práce je teď v učebně 222
 Výsledek:
 ![obrazek](https://github.com/user-attachments/assets/e77b8391-7378-4c6a-9adc-8286b84a32a7)
 
-Pro zájemce můžu individuálně poslat všechny 3D modely, nebo zodpovědět na jakýkoliv dotaz okolo mého projektu.
+Pro zájemce můžu individuálně poslat všechny 3D modely, nebo zodpovědět na jakýkoliv dotaz okolo mého projektu, máte k dispozici zdrojový kód, kde je vše popsané.
 Pro kontakt: eduard.wojnar@student.gmh.cz, nebo se mě zeptejte na chodbě školy
 
 Rád bych poděkoval Panu učiteli Jelínkovi a Vodvářkovi za podporu a vedení.

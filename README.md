@@ -40,6 +40,11 @@ Pájení - 15 hodin
 
 Po spájení se vše jen muselo zfinalizovat a doladit.
 
+Zde je schéma:
+
+![obrazek](https://github.com/user-attachments/assets/1a2e7f90-493a-4326-8ef4-6244d18e9c00)
+
+
 Finalizace - 5 hodin
 
 Kdybych tento projekt dělal teď tak si rozhodně udělám lépe kostru aby to do sebe lépe zapadalo a nemusel jsem tolik lepit. Dále bych si vybral nějaký jiný druh kabeláže než pájení. 

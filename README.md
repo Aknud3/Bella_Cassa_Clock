@@ -31,6 +31,7 @@ Kompletace - 4 hodiny
 Po vyrobení kostry jsem musel nahrát program do mikročipu a spájet všechny kabely a nalepit ledky (100 + 10 + 130).
 
 ESP32-S:
+
 ![obrazek](https://github.com/user-attachments/assets/0bf003e8-25d6-4cf0-9866-38a38a8d16c2)
 
 Měl jsem k dispozici řetěz o 100 ledkách a potom proužek s 10 metry.

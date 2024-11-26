@@ -17,7 +17,9 @@ Celý tento kód jsem měl udělaný rychle, zabral mi nějaké 2 týdny od prvn
 Nejnáročnější bylo udělat modely, vytisknout a vše slepit dohromady. 3D modely jsem dělal s Panem Jelínkem, vše jsme se snažili tisknout na, co největší průměr otvoru tiskové hlavice, aby tisk byl co nejdříve.  
 
 3D Modelování a tisknutí prototypů - 14-16 hodin čisté práce
+
 Tisk - přes 100 hodin (práce tiskárny)
+
 Kompletace - 4 hodiny
 
 Po vyrobení kostry jsem musel nahrát program do mikročipu a spájet všechny kabely a nalepit ledky (100 + 10 + 130).
@@ -33,6 +35,7 @@ Tuto fázi jsem dělal 2 krát kvůli kompikacím s ledproužkem (myšlenka byla
 Také se rozsvěcuje jen lichá ledka, protože ty sudé jsou jako ambientní osvětlení, které je ale vypnuté.
 
 Lepení - 5 hodin
+
 Komplikace - 20 hodin 
 
 Poté stačilo jen vše spájet. 
@@ -49,15 +52,23 @@ Finalizace - 5 hodin
 Celkové materiály, co jsem použil:
 
 Přes 1,5 KG Prusa PLA Galaxy Black filamentu - 1000 Kč,-
+
 300 g Prusa PLA bílého filamentu - 250 Kč,-
+
 4 m Programovatelného RGB pásku - 800 Kč,-
+
 Celý 100 ledkový GRB vánoční řetěz - 250 Kč,- 
+
 ESP32-S - 150 Kč,-
+
 Tlačítko z Kail Box White Switche - 25 Kč,-
+
 Dále přes 3 m ethernetového kabelu na dělání vodičů - 70 Kč,-
+
 0,6 m elektirckého kabelu na větší vodiče - 10 Kč,-
 
 Mikropájka, tavná pistole
+
 Celková cena byla přibližně 2555 Kč,-
 
 Kdybych tento projekt dělal teď tak si rozhodně udělám lépe kostru aby to do sebe lépe zapadalo a nemusel jsem tolik lepit. Dále bych si vybral nějaký jiný druh kabeláže než pájení. 
@@ -68,7 +79,9 @@ Výsledek:
 ![obrazek](https://github.com/user-attachments/assets/e77b8391-7378-4c6a-9adc-8286b84a32a7)
 
 Pro zájemce můžu individuálně poslat všechny 3D modely, nebo zodpovědět na jakýkoliv dotaz okolo mého projektu, máte k dispozici zdrojový kód, kde je vše popsané.
+
 Pro kontakt: eduard.wojnar@student.gmh.cz, nebo se mě zeptejte na chodbě školy
 
 Rád bych poděkoval Panu učiteli Jelínkovi a Vodvářkovi za podporu a vedení.
+
 Speciálně bych chtěl poděkovat Honzovi Studničnému za pomoc při pájení.

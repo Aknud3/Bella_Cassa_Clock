@@ -47,6 +47,20 @@ Zde je schéma:
 
 Finalizace - 5 hodin
 
+Celkové materiály, co jsem použil:
+
+Přes 1,5 KG Prusa PLA Galaxy Black filamentu - 1000 Kč,-
+300 g Prusa PLA bílého filamentu - 250 Kč,-
+4 m Programovatelného RGB pásku - 800 Kč,-
+Celý 100 ledkový GRB vánoční řetěz - 250 Kč,- 
+ESP32-S - 150 Kč,-
+Tlačítko z Kail Box White Switche - 25 Kč,-
+Dále přes 3 m ethernetového kabelu na dělání vodičů - 70 Kč,-
+0,6 m elektirckého kabelu na větší vodiče - 10 Kč,-
+
+Mikropájka, tavná pistole
+Celková cena byla přibližně 2555 Kč,-
+
 Kdybych tento projekt dělal teď tak si rozhodně udělám lépe kostru aby to do sebe lépe zapadalo a nemusel jsem tolik lepit. Dále bych si vybral nějaký jiný druh kabeláže než pájení. 
 
 Výsledek mojí práce je teď v učebně 222
